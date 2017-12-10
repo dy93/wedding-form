@@ -9,10 +9,11 @@
 			"request": "launch",
 			"name": "Launch Chrome against localhost",
 			"url": "http://localhost:3000",
-			"webRoot": "${workspaceRoot}/src",
+			"webRoot": "${workspaceRoot}/client/src",
 			"sourceMapPathOverrides": {
 				"webpack:///src/*": "${webRoot}/*"
-			}
+			},
+			"cwd": "${workspaceFolder}/client"
 		}
 	]
 }
