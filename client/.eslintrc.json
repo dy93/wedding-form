@@ -13,6 +13,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "react/forbid-prop-types":"off",
         "no-const-assign": "warn",
         "no-this-before-super": "warn",
         "no-undef": "warn",
@@ -22,10 +23,17 @@
         "valid-typeof": "warn",
         "react/prefer-stateless-function": 0,
         "react/jsx-filename-extension": 0,
-        "jsx-a11y/anchor-is-valid": [ "error", {
-            "components": [ "Link" ],
-            "specialLink": [ "to" ]
-        }]
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": [
+                    "Link"
+                ],
+                "specialLink": [
+                    "to"
+                ]
+            }
+        ]
     },
     "extends": "airbnb"
 }
