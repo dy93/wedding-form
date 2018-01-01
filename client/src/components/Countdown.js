@@ -2,8 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import Ripple from 'react-toolbox/lib/ripple/Ripple';
 import './countdown.css';
+import config from '../config';
 
-const END_TIME = moment('2018-05-26 00:00:00', 'YYYY-MM-DD HH:mm:ss');
+const END_TIME = moment(config.countdownTime, 'YYYY-MM-DD HH:mm:ss');
 
 function lpad(number) {
   if (number < 10) {

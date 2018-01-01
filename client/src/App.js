@@ -10,6 +10,7 @@ import CountDown from './components/Countdown';
 import Info from './components/Info';
 import Form from './components/Form';
 import QA from './components/QA';
+import config from './config';
 
 class App extends Component {
   state = {
@@ -113,8 +114,8 @@ class App extends Component {
             flex: 1, overflowY: 'auto', paddingTop: '1.8rem', marginTop: '200px',
           }}
           >
-            <h1 style={{ color: 'white' }}>地表最強婚宴調查表</h1>
-            <small style={{ color: 'white' }}>從慶 x 雪汾</small>
+            <h1 style={{ color: 'white' }}>{config.title}</h1>
+            <small style={{ color: 'white' }}>{config.subtitle}</small>
             <CountDown />
               <Tabs inverse index={this.state.selectTab} onChange={this.onTabChange} fixed>
                 <Tab label="婚宴資訊">
@@ -123,7 +124,7 @@ class App extends Component {
                 <Tab label="婚宴報名">
                   <Form {...this.state} onChange={this.onChange} onSubmit={this.onSubmit} />
                 </Tab>
-                <Tab label="Q&A">
+                <Tab label="Q&amp;A">
                   <QA />
                 </Tab>
               </Tabs>
