@@ -7,6 +7,7 @@ import ListItem from 'react-toolbox/lib/list/ListItem';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import Input from 'react-toolbox/lib/input/Input';
 import ListRadio from './ListRadio';
+import './child.css';
 
 class Child extends React.Component {
   render() {
@@ -48,7 +49,10 @@ class Child extends React.Component {
           ]}
         />
         <List selectable ripple>
-          <ListSubHeader caption="留下你的email或地址，讓我們寄喜帖給你喲" />
+          <ListSubHeader
+            className="list-item-header"
+            caption="留下你的email或地址，讓我們寄喜帖給你喲"
+          />
           <form
             onSubmit={(e) => {
               e.preventDefault();
