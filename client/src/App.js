@@ -119,7 +119,7 @@ class App extends Component {
             <CountDown />
               <Tabs inverse index={this.state.selectTab} onChange={this.onTabChange} fixed>
                 <Tab label="婚宴資訊">
-                  <Info />
+                  <Info register={() => this.onTabChange(1)}/>
                 </Tab>
                 <Tab label="婚宴報名">
                   <Form {...this.state} onChange={this.onChange} onSubmit={this.onSubmit} />
