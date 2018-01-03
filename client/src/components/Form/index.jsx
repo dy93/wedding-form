@@ -126,7 +126,6 @@ Form.propTypes = {
   attend: PropTypes.string.isRequired,
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
-  relation_else: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,

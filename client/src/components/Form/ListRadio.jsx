@@ -1,12 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RadioGroup from 'react-toolbox/lib/radio/RadioGroup';
+import RadioButton from 'react-toolbox/lib/radio/RadioButton';
 import List from 'react-toolbox/lib/list/List';
 import ListItem from 'react-toolbox/lib/list/ListItem';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
-import ListRadioItemContent from './ListRadioItemContent';
+import Input from 'react-toolbox/lib/input/Input';
+import './ListRadioInput.css';
 
 class ListRadio extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: '',
+    };
+    this.getInputRef = this.getInputRef.bind(this);
+    this.onElseClick = this.onElseClick.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onSubmit(e) {
+    console.log('onSubmit');
+    e.preventDefault();
+    this.inputRef.blur();
+  }
+  onInputChange(value) {
+    this.setState({ inputValue: value });
+    this.props.onChange(this.props.name, value);
+  }
+  onElseClick() {
+    const { onChange, name } = this.props;
+    this.inputRef.focus();
+    return onChange(name, this.state.inputValue);
+  }
+  getInputRef(ref) {
+    this.inputRef = ref;
+  }
   render() {
     const {
       items,
@@ -14,32 +42,51 @@ class ListRadio extends React.Component {
       name,
       selectValue,
       onChange,
+      allowElse = false,
     } = this.props;
     return (
       <List selectable ripple>
         <ListSubHeader caption={title} />
-        <RadioGroup name={name} value={selectValue} onChange={v => onChange(name, v)}>
-          {
-            items.map((entry) => {
-              const { value } = entry;
-              return (
-                <ListItem
-                  htmlFor={name}
-                  key={value}
-                  onClick={() => onChange(name, value)}
-                  itemContent={
-                    <ListRadioItemContent
-                      {...entry}
-                      selectValue={selectValue}
-                      name={name}
-                      onChange={onChange}
-                    />
-                  }
+        {
+          items.map(entry => (
+            <ListItem
+              key={entry.value}
+              onClick={() => onChange(name, entry.value)}
+              itemContent={
+                <div>
+                  <RadioButton
+                    label={entry.caption}
+                    value={entry.value}
+                    checked={selectValue === entry.value}
+                  />
+                </div>
+              }
+            />
+          ))
+        }
+        {
+          allowElse &&
+          <ListItem
+            onClick={this.onElseClick}
+            itemContent={
+              <div style={{ marginTop: '6.5px' }}>
+                <RadioButton
+                  label="其它"
+                  checked={!items.find(entry => entry.value === selectValue)}
                 />
-              );
-            })
-          }
-        </RadioGroup>
+                <form onSubmit={this.onSubmit}>
+                  <Input
+                    maxLength={50}
+                    className="padding-padding-disappear"
+                    innerRef={this.getInputRef}
+                    value={!items.find(entry => entry.value === selectValue) ? this.state.inputValue : ''}
+                    onChange={this.onInputChange}
+                  />
+                </form>
+              </div>
+              }
+          />
+        }
       </List>
     );
   }
@@ -59,6 +106,11 @@ ListRadio.propTypes = {
       value: PropTypes.value,
     }),
   })).isRequired,
+  allowElse: PropTypes.bool,
+};
+
+ListRadio.defaultProps = {
+  allowElse: false,
 };
 
 export default ListRadio;

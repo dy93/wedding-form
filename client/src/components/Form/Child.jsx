@@ -13,9 +13,9 @@ class Child extends React.Component {
     const {
       invitor,
       relation,
-      relation_else,
       people,
       vegetable,
+      childrenSeats,
       onChange,
     } = this.props;
     return (
@@ -32,14 +32,8 @@ class Child extends React.Component {
           name="relation"
           selectValue={relation}
           onChange={onChange}
-          items={[
-            ...config.form.relation.items,
-            {
-              caption: '其它',
-              value: 'else',
-              input: { hint: '請輸入', label: '其它', value: relation_else },
-            },
-          ]}
+          items={config.form.relation.items}
+          allowElse
         />
         <List selectable ripple>
           <ListSubHeader caption="出席人數(包含自己)" />
@@ -67,6 +61,19 @@ class Child extends React.Component {
             onChange={v => onChange('vegetable', v)}
           />
         </List>
+        <List selectable ripple>
+          <ListSubHeader caption="是否需要兒童座椅? (請選擇需要數量)" />
+          <Slider
+            pinned
+            snaps
+            min={0}
+            max={3}
+            step={1}
+            editable
+            value={childrenSeats}
+            onChange={v => onChange('childrenSeats', v)}
+          />
+        </List>
       </div>
     );
   }
@@ -75,9 +82,9 @@ class Child extends React.Component {
 Child.propTypes = {
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
-  relation_else: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
   vegetable: PropTypes.number.isRequired,
+  childrenSeats: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

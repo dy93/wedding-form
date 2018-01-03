@@ -8,15 +8,6 @@ import Button from 'react-toolbox/lib/button/Button';
 import Chip from 'react-toolbox/lib/chip/Chip';
 import Avatar from 'react-toolbox/lib/avatar/Avatar';
 
-const RELATION = {
-  work: '同事',
-  wuling: '交大武友會',
-  college: '大學/研究所同學',
-  senior: '高中同學',
-  junior: '國中同學',
-  else: '其它',
-};
-
 class Confirm extends React.Component {
   render() {
     const {
@@ -24,7 +15,6 @@ class Confirm extends React.Component {
       attend,
       invitor,
       relation,
-      relation_else,
       email,
       address,
       people,
@@ -44,8 +34,7 @@ class Confirm extends React.Component {
           {attend === 'YES' &&
             <Chip>
               <Avatar icon="people" />
-              {invitor === 'dy93' && <span>從慶的朋友 ({relation !== 'else' ? RELATION[relation] : (relation_else || '其它')})</span>}
-              {invitor === 'ueewbd' && <span>雪汾的朋友 ({relation !== 'else' ? RELATION[relation] : (relation_else || '其它')})</span>}
+              <span>{invitor} ({relation})</span>
             </Chip>
           }
           {attend === 'YES' &&
@@ -84,7 +73,6 @@ Confirm.propTypes = {
   attend: PropTypes.string.isRequired,
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
-  relation_else: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
