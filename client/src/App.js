@@ -16,18 +16,19 @@ class App extends Component {
   state = {
     name: '',
     attend: 'YES',
-    invitor: 'dy93',
-    relation: 'work',
-    relation_else: '',
+    invitor: config.form.invitor.items[0].value,
+    relation: config.form.relation.items[0].value,
+    relationElse: '',
     email: '',
     address: '',
     people: 1,
     vegetable: 0, // 素食人敗
+    childrenSeats: 0,
     memo: '',
     result: null,
     showDialog: false,
     showLoading: false,
-    selectTab: 0,
+    selectTab: 1,
   };
 
   constructor(props) {
@@ -45,7 +46,7 @@ class App extends Component {
       attend,
       invitor,
       relation,
-      relation_else,
+      relationElse,
       email,
       address,
       people,
@@ -58,13 +59,14 @@ class App extends Component {
     this.setState({
       name: '',
       attend: 'YES',
-      invitor: 'dy93',
-      relation: 'work',
-      relation_else: '',
+      invitor: config.form.invitor.items[0].value,
+      relation: config.form.relation.items[0].value,
+      relationElse: '',
       email: '',
       address: '',
       people: 1,
-      vegetable: 0, // 素食人敗
+      vegetable: 0, // 素食人數
+      childrenSeats: 0, // 兒童座椅
       memo: '',
       showLoading: false,
       selectTab: 0,
