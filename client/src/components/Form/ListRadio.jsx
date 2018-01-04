@@ -19,7 +19,6 @@ class ListRadio extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   onSubmit(e) {
-    console.log('onSubmit');
     e.preventDefault();
     this.inputRef.blur();
   }
@@ -29,7 +28,9 @@ class ListRadio extends React.Component {
   }
   onElseClick() {
     const { onChange, name } = this.props;
-    this.inputRef.focus();
+    setTimeout(() => {
+      this.inputRef.focus();
+    }, 100);
     return onChange(name, this.state.inputValue);
   }
   getInputRef(ref) {
@@ -76,6 +77,7 @@ class ListRadio extends React.Component {
                 />
                 <form onSubmit={this.onSubmit}>
                   <Input
+                    type={!items.find(entry => entry.value === selectValue) ? 'text' : 'hidden'}
                     maxLength={50}
                     className="padding-padding-disappear"
                     innerRef={this.getInputRef}
