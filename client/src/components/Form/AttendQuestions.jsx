@@ -4,22 +4,25 @@ import PropTypes from 'prop-types';
 import Slider from 'react-toolbox/lib/slider/Slider';
 import List from 'react-toolbox/lib/list/List';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
-import ListRadio from './ListRadio';
-import './child.css';
+import ListRadioGroup from './ListRadioGroup';
+import './attend-questions.css';
 import config from '../../config';
 
-class Child extends React.Component {
+const getRelationRadioGroupRef = Symbol('getRelationRadioGroupRef');
+const relationRadioGroupRef = Symbol('relationRadioGroupRef');
+
+class AttendQuestions extends React.Component {
   constructor(props) {
     super(props);
-    this.getRelationListRadioRef = this.getRelationListRadioRef.bind(this);
+    this[getRelationRadioGroupRef] = this[getRelationRadioGroupRef].bind(this);
   }
 
-  getRelationListRadioRef(ref) {
-    this.relationListRadioRef = ref;
+  [getRelationRadioGroupRef](ref) {
+    this[relationRadioGroupRef] = ref;
   }
 
-  focusOnRelationOther() {
-    this.relationListRadioRef.focusOnOther();
+  focusOnCustomRelationInput() {
+    this[relationRadioGroupRef].focusOnCustomInput();
   }
 
 
@@ -34,21 +37,21 @@ class Child extends React.Component {
     } = this.props;
     return (
       <div>
-        <ListRadio
+        <ListRadioGroup
           title={config.form.invitor.title}
           name="invitor"
           selectValue={invitor}
           onChange={onChange}
           items={config.form.invitor.items}
         />
-        <ListRadio
+        <ListRadioGroup
           title={config.form.relation.title}
           name="relation"
           selectValue={relation}
           onChange={onChange}
           items={config.form.relation.items}
-          allowElse
-          ref={this.getRelationListRadioRef}
+          allowCustomValue
+          ref={this[getRelationRadioGroupRef]}
         />
         <List selectable ripple>
           <ListSubHeader caption="出席人數(包含自己)" />
@@ -94,7 +97,7 @@ class Child extends React.Component {
   }
 }
 
-Child.propTypes = {
+AttendQuestions.propTypes = {
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
@@ -103,4 +106,4 @@ Child.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default Child;
+export default AttendQuestions;

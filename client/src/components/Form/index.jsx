@@ -7,37 +7,41 @@ import List from 'react-toolbox/lib/list/List';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import ListItem from 'react-toolbox/lib/list/ListItem';
 import Input from 'react-toolbox/lib/input/Input';
-import Child from './Child';
-import ListRadio from './ListRadio';
+import AttendQuestions from './AttendQuestions';
+import ListRadioGroup from './ListRadioGroup';
 import ListInput from './ListInput';
 import Confirm from './Confirm';
 import config from '../../config';
 
+const onEmailOrAddressSubmit = Symbol('onEmailOrAddressSubmit');
+const getEmailInputRef = Symbol('getEmailInputRef');
+const emailInputRef = Symbol('emailInputRef');
+const getAddressInputRef = Symbol('getAddressInputRef');
+const addressInputRef = Symbol('addressInputRef');
+const getNameInputRef = Symbol('getNameInputRef');
+const nameInputRef = Symbol('nameInputRef');
+const getAttendQuestionRef = Symbol('getAttendQuestionRef');
+const attendQuestionRef = Symbol('attendQuestionRef');
+const getRef = Symbol('getRef');
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.onEmailOrAddressSubmit = this.onEmailOrAddressSubmit.bind(this);
-    this.emailRef = this.getRef.bind(this, 'email');
-    this.addressRef = this.getRef.bind(this, 'address');
-    this.getNameListInputRef = this.getRef.bind(this, 'listInput');
-    this.getChildRef = this.getRef.bind(this, 'child');
-    this.jumpToName = this.jumpTo.bind(this, 'listInput');
-    this.jumpToEmail = this.jumpTo.bind(this, 'email');
+    this[onEmailOrAddressSubmit] = this[onEmailOrAddressSubmit].bind(this);
+    this[getEmailInputRef] = this[getRef].bind(this, emailInputRef);
+    this[getAddressInputRef] = this[getRef].bind(this, addressInputRef);
+    this[getNameInputRef] = this[getRef].bind(this, nameInputRef);
+    this[getAttendQuestionRef] = this[getRef].bind(this, attendQuestionRef);
   }
 
-  onEmailOrAddressSubmit(e) {
+  [onEmailOrAddressSubmit](e) {
     e.preventDefault();
-    this.email.blur();
-    this.address.blur();
+    this[emailInputRef].blur();
+    this[addressInputRef].blur();
   }
 
-  getRef(compName, ref) {
-    console.log(compName, ref);
-    this[compName] = ref;
-  }
-
-  jumpTo(compName) {
-    this[compName].focus();
+  [getRef](sym, ref) {
+    this[sym] = ref;
   }
 
   render() {
@@ -63,9 +67,9 @@ class Form extends React.Component {
               onChange={onChange}
               hint={config.form.name.hint}
               option={{ maxLength: 100, required: true }}
-              ref={this.getNameListInputRef}
+              ref={this[getNameInputRef]}
             />
-            <ListRadio
+            <ListRadioGroup
               name="attend"
               selectValue={attend}
               title={config.form.attendance.title}
@@ -74,9 +78,13 @@ class Form extends React.Component {
             />
             {
               attend === 'YES' &&
-              <Child {...this.props} onChange={onChange} ref={this.getChildRef} />
+              <AttendQuestions
+                {...this.props}
+                onChange={onChange}
+                ref={this[getAttendQuestionRef]}
+              />
             }
-            <ListRadio
+            <ListRadioGroup
               name="invitation"
               selectValue={invitation}
               title={config.form.invitation.title}
@@ -94,7 +102,7 @@ class Form extends React.Component {
                   itemContent={
                     <form
                       style={{ width: '100%' }}
-                      onSubmit={this.onEmailOrAddressSubmit}
+                      onSubmit={this[onEmailOrAddressSubmit]}
                     >
                       <Input
                         label="email"
@@ -103,7 +111,7 @@ class Form extends React.Component {
                         hint="email"
                         value={email}
                         onChange={v => onChange('email', v)}
-                        innerRef={this.emailRef}
+                        innerRef={this[getEmailInputRef]}
                       />
                       <Input
                         type="text"
@@ -112,7 +120,7 @@ class Form extends React.Component {
                         hint="address"
                         value={address}
                         onChange={v => onChange('address', v)}
-                        innerRef={this.addressRef}
+                        innerRef={this[getAddressInputRef]}
                       />
                       <input hidden type="submit" name="submit" value="" />
                     </form>
@@ -130,7 +138,13 @@ class Form extends React.Component {
             />
           </CardText>
         </Card>
-        <Confirm {...this.props} onSubmit={onSubmit} jumpToName={this.jumpToName} jumpToChild={() => { this.child.focusOnRelationOther(); }} jumpToEmail={this.jumpToEmail} />
+        <Confirm
+          {...this.props}
+          onSubmit={onSubmit}
+          jumpToName={() => { this[nameInputRef].focus(); }}
+          jumpToCustomRelation={() => { this[attendQuestionRef].focusOnCustomRelationInput(); }}
+          jumpToEmail={() => { this[emailInputRef].focus(); }}
+        />
       </div>
     );
   }

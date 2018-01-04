@@ -5,29 +5,34 @@ import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import Input from 'react-toolbox/lib/input/Input';
 import PropTypes from 'prop-types';
 
+const onSubmit = Symbol('onSubmit');
+const onListItemClick = Symbol('onListItemClick');
+const getInputRef = Symbol('getInputRef');
+const inputRef = Symbol('inputRef');
+
 class ListInput extends React.Component {
   constructor(props) {
     super(props);
-    this.getInputRef = this.getInputRef.bind(this);
-    this.onClick = this.onClick.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this[getInputRef] = this[getInputRef].bind(this);
+    this[onListItemClick] = this[onListItemClick].bind(this);
+    this[onSubmit] = this[onSubmit].bind(this);
   }
 
-  onSubmit(e) {
+  [onSubmit](e) {
     e.preventDefault();
-    this.inputRef.blur();
+    this[inputRef].blur();
   }
 
-  onClick() {
-    this.inputRef.focus();
+  [onListItemClick]() {
+    this[inputRef].focus();
   }
 
-  getInputRef(ref) {
-    this.inputRef = ref;
+  [getInputRef](ref) {
+    this[inputRef] = ref;
   }
 
   focus() {
-    this.inputRef.focus();
+    this[inputRef].focus();
   }
 
   render() {
@@ -38,15 +43,15 @@ class ListInput extends React.Component {
       <List selectable ripple>
         {title && <ListSubHeader caption={title} />}
         <ListItem
-          onClick={this.onClick}
+          onClick={this[onListItemClick]}
           itemContent={
-            <form style={{ width: '100%' }} onSubmit={this.onSubmit}>
+            <form style={{ width: '100%' }} onSubmit={this[onSubmit]}>
               <Input
                 hint={hint}
                 value={value}
                 onChange={v => onChange(name, v)}
                 {...option}
-                innerRef={this.getInputRef}
+                innerRef={this[getInputRef]}
               />
             </form>
           }

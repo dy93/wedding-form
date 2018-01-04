@@ -23,7 +23,7 @@ class Confirm extends React.Component {
       memo,
       onSubmit,
       jumpToName,
-      jumpToChild,
+      jumpToCustomRelation,
       jumpToEmail,
     } = this.props;
     return (
@@ -42,7 +42,7 @@ class Confirm extends React.Component {
               <Chip>
                 <Avatar icon="people" />
                 {relation && <span>{invitor} ({relation})</span>}
-                {!relation && <span style={{ color: 'red' }} onClick={jumpToChild}>{invitor} (請輸入關係)</span>}
+                {!relation && <span style={{ color: 'red' }} onClick={jumpToCustomRelation}>{invitor} (請輸入關係)</span>}
               </Chip>
             </div>
           }
@@ -98,7 +98,7 @@ Confirm.propTypes = {
   memo: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   jumpToName: PropTypes.func.isRequired,
-  jumpToChild: PropTypes.func.isRequired,
+  jumpToCustomRelation: PropTypes.func.isRequired,
   jumpToEmail: PropTypes.func.isRequired,
 };
 

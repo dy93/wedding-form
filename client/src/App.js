@@ -13,6 +13,15 @@ import QA from './components/QA';
 import config from './config';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.toggleDialog = this.toggleDialog.bind(this);
+    this.showLoading = this.showLoading.bind(this);
+    this.onTabChange = this.onTabChange.bind(this);
+  }
+
   state = {
     name: '',
     attend: 'YES',
@@ -31,15 +40,6 @@ class App extends Component {
     showLoading: false,
     selectTab: 1,
   };
-
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.toggleDialog = this.toggleDialog.bind(this);
-    this.showLoading = this.showLoading.bind(this);
-    this.onTabChange = this.onTabChange.bind(this);
-  }
 
   onSubmit() {
     const {
@@ -119,7 +119,8 @@ class App extends Component {
           backgroundImage: 'url(./bg2.jpg)',
           backgroundRepeat: 'no-repeat',
           backgroundPositionX: 'center',
-        }}>
+        }}
+        >
           <div style={{
             flex: 1, overflowY: 'auto', paddingTop: '1.8rem', marginTop: '200px',
           }}
