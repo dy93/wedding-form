@@ -9,6 +9,20 @@ import './child.css';
 import config from '../../config';
 
 class Child extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getRelationListRadioRef = this.getRelationListRadioRef.bind(this);
+  }
+
+  getRelationListRadioRef(ref) {
+    this.relationListRadioRef = ref;
+  }
+
+  focusOnRelationOther() {
+    this.relationListRadioRef.focusOnOther();
+  }
+
+
   render() {
     const {
       invitor,
@@ -34,6 +48,7 @@ class Child extends React.Component {
           onChange={onChange}
           items={config.form.relation.items}
           allowElse
+          ref={this.getRelationListRadioRef}
         />
         <List selectable ripple>
           <ListSubHeader caption="出席人數(包含自己)" />

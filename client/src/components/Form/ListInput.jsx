@@ -6,6 +6,30 @@ import Input from 'react-toolbox/lib/input/Input';
 import PropTypes from 'prop-types';
 
 class ListInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getInputRef = this.getInputRef.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    this.inputRef.blur();
+  }
+
+  onClick() {
+    this.inputRef.focus();
+  }
+
+  getInputRef(ref) {
+    this.inputRef = ref;
+  }
+
+  focus() {
+    this.inputRef.focus();
+  }
+
   render() {
     const {
       name, title, hint, onChange, value, option,
@@ -14,19 +38,15 @@ class ListInput extends React.Component {
       <List selectable ripple>
         {title && <ListSubHeader caption={title} />}
         <ListItem
-          onClick={() => { this[name] && this[name].focus(); }}
+          onClick={this.onClick}
           itemContent={
-            <form style={{ width: '100%' }} onSubmit={(e) => { e.preventDefault(); this[name] && this[name].blur(); }}>
+            <form style={{ width: '100%' }} onSubmit={this.onSubmit}>
               <Input
                 hint={hint}
                 value={value}
                 onChange={v => onChange(name, v)}
                 {...option}
-                innerRef={(r) => {
-                  if (r) {
-                    this[name] = r;
-                  }
-                }}
+                innerRef={this.getInputRef}
               />
             </form>
           }

@@ -16,22 +16,35 @@ import config from '../../config';
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.emailRef = this.emailRef.bind(this);
-    this.addressRef = this.addressRef.bind(this);
+    this.onEmailOrAddressSubmit = this.onEmailOrAddressSubmit.bind(this);
+    this.emailRef = this.getRef.bind(this, 'email');
+    this.addressRef = this.getRef.bind(this, 'address');
+    this.getNameListInputRef = this.getRef.bind(this, 'listInput');
+    this.getChildRef = this.getRef.bind(this, 'child');
+    this.jumpToName = this.jumpTo.bind(this, 'listInput');
+    this.jumpToEmail = this.jumpTo.bind(this, 'email');
   }
 
-  emailRef(ref) {
-    this.email = ref;
+  onEmailOrAddressSubmit(e) {
+    e.preventDefault();
+    this.email.blur();
+    this.address.blur();
   }
 
-  addressRef(ref) {
-    this.address = ref;
+  getRef(compName, ref) {
+    console.log(compName, ref);
+    this[compName] = ref;
+  }
+
+  jumpTo(compName) {
+    this[compName].focus();
   }
 
   render() {
     const {
       name,
       attend,
+      invitation,
       memo,
       onSubmit,
       onChange,
@@ -50,6 +63,7 @@ class Form extends React.Component {
               onChange={onChange}
               hint={config.form.name.hint}
               option={{ maxLength: 100, required: true }}
+              ref={this.getNameListInputRef}
             />
             <ListRadio
               name="attend"
@@ -58,23 +72,30 @@ class Form extends React.Component {
               onChange={onChange}
               items={config.form.attendance.items}
             />
-            {attend === 'YES' && <Child {...this.props} onChange={onChange} />}
-            <List selectable ripple>
-              <ListSubHeader
-                className="list-item-header"
-                caption="留下你的email或地址，讓我們寄喜帖給你喲"
-              />
-              <form
-                onSubmit={(e) => {
-              e.preventDefault();
-              this.email && this.email.blur();
-              this.address && this.address.blur();
-            }}
-              >
+            {
+              attend === 'YES' &&
+              <Child {...this.props} onChange={onChange} ref={this.getChildRef} />
+            }
+            <ListRadio
+              name="invitation"
+              selectValue={invitation}
+              title={config.form.invitation.title}
+              onChange={onChange}
+              items={config.form.invitation.items}
+            />
+            {
+              invitation === 'YES' &&
+              <List selectable ripple>
+                <ListSubHeader
+                  className="list-item-header"
+                  caption="留下你的email或地址，讓我們寄喜帖給你喲"
+                />
                 <ListItem
-                  onClick={() => { this.email && this.email.focus(); }}
                   itemContent={
-                    <div style={{ width: '100%' }}>
+                    <form
+                      style={{ width: '100%' }}
+                      onSubmit={this.onEmailOrAddressSubmit}
+                    >
                       <Input
                         label="email"
                         type="email"
@@ -84,13 +105,6 @@ class Form extends React.Component {
                         onChange={v => onChange('email', v)}
                         innerRef={this.emailRef}
                       />
-                    </div>
-              }
-                />
-                <ListItem
-                  onClick={() => { this.address && this.address.focus(); }}
-                  itemContent={
-                    <div style={{ width: '100%' }}>
                       <Input
                         type="text"
                         label="地址"
@@ -100,11 +114,12 @@ class Form extends React.Component {
                         onChange={v => onChange('address', v)}
                         innerRef={this.addressRef}
                       />
-                    </div>
-              }
+                      <input hidden type="submit" name="submit" value="" />
+                    </form>
+                }
                 />
-              </form>
-            </List>
+              </List>
+            }
             <ListInput
               title="想對我們說的話"
               name="memo"
@@ -115,7 +130,7 @@ class Form extends React.Component {
             />
           </CardText>
         </Card>
-        <Confirm {...this.props} onSubmit={onSubmit} />
+        <Confirm {...this.props} onSubmit={onSubmit} jumpToName={this.jumpToName} jumpToChild={() => { this.child.focusOnRelationOther(); }} jumpToEmail={this.jumpToEmail} />
       </div>
     );
   }
@@ -124,6 +139,7 @@ class Form extends React.Component {
 Form.propTypes = {
   name: PropTypes.string.isRequired,
   attend: PropTypes.string.isRequired,
+  invitation: PropTypes.string.isRequired,
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,

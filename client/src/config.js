@@ -46,6 +46,15 @@ export default {
         { caption: '國中同學', value: '國中同學' },
       ],
     },
+
+    invitation: {
+      title: '是否需要喜帖?',
+      items: [
+        // the value must be 'YES' or 'NO'
+        { caption: 'YES', value: 'YES' },
+        { caption: 'NO', value: 'NO' },
+      ],
+    },
   },
 
   qa: [

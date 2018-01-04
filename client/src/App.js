@@ -16,6 +16,7 @@ class App extends Component {
   state = {
     name: '',
     attend: 'YES',
+    invitation: 'YES',
     invitor: config.form.invitor.items[0].value,
     relation: config.form.relation.items[0].value,
     relationElse: '',
@@ -44,6 +45,7 @@ class App extends Component {
     const {
       name,
       attend,
+      invitation,
       invitor,
       relation,
       relationElse,
@@ -59,6 +61,7 @@ class App extends Component {
     this.setState({
       name: '',
       attend: 'YES',
+      invitation: 'YES',
       invitor: config.form.invitor.items[0].value,
       relation: config.form.relation.items[0].value,
       relationElse: '',
@@ -73,7 +76,11 @@ class App extends Component {
     });
   }
   onChange(name, value) {
-    this.setState({ [name]: value });
+    if (typeof value === 'string') {
+      this.setState({ [name]: value.trim().length === 0 ? '' : value });
+    } else {
+      this.setState({ [name]: value });
+    }
   }
 
   onTabChange(index) {
@@ -87,6 +94,7 @@ class App extends Component {
   showLoading(loading) {
     this.setState({ showLoading: loading });
   }
+
   render() {
     return (
       <Layout className="App" >
@@ -112,24 +120,24 @@ class App extends Component {
           backgroundRepeat: 'no-repeat',
           backgroundPositionX: 'center',
         }}>
-        <div style={{
+          <div style={{
             flex: 1, overflowY: 'auto', paddingTop: '1.8rem', marginTop: '200px',
           }}
           >
             <h1 style={{ color: 'white' }}>{config.title}</h1>
             <small style={{ color: 'white' }}>{config.subtitle}</small>
             <CountDown />
-              <Tabs inverse index={this.state.selectTab} onChange={this.onTabChange} fixed>
-                <Tab label="婚宴資訊">
-                  <Info register={() => this.onTabChange(1)}/>
-                </Tab>
-                <Tab label="婚宴報名">
-                  <Form {...this.state} onChange={this.onChange} onSubmit={this.onSubmit} />
-                </Tab>
-                <Tab label="Q&amp;A">
-                  <QA />
-                </Tab>
-              </Tabs>
+            <Tabs inverse index={this.state.selectTab} onChange={this.onTabChange} fixed>
+              <Tab label="婚宴資訊">
+                <Info register={() => this.onTabChange(1)} />
+              </Tab>
+              <Tab label="婚宴報名">
+                <Form {...this.state} onChange={this.onChange} onSubmit={this.onSubmit} />
+              </Tab>
+              <Tab label="Q&amp;A">
+                <QA />
+              </Tab>
+            </Tabs>
           </div>
         </Panel>
       </Layout>

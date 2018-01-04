@@ -18,23 +18,30 @@ class ListRadio extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+
   onSubmit(e) {
     e.preventDefault();
     this.inputRef.blur();
   }
   onInputChange(value) {
-    this.setState({ inputValue: value });
-    this.props.onChange(this.props.name, value);
+    const trimValue = value.trim().length === 0 ? '' : value;
+    this.setState({ inputValue: trimValue });
+    this.props.onChange(this.props.name, trimValue);
   }
   onElseClick() {
     const { onChange, name } = this.props;
+    onChange(name, this.state.inputValue);
     setTimeout(() => {
       this.inputRef.focus();
-    }, 100);
-    return onChange(name, this.state.inputValue);
+    }, 0);
   }
   getInputRef(ref) {
     this.inputRef = ref;
+  }
+
+  focusOnOther() {
+    this.inputRef.focus();
   }
   render() {
     const {
