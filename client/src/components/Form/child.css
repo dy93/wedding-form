@@ -1,5 +1,5 @@
 h5.list-item-header {
 	white-space: normal;
-	word-break: break-all;
+	word-break: normal;
 	line-height: inherit;
 }
