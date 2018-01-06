@@ -5,7 +5,7 @@ const dbHelper = require('../lib/dbHelper');
 
 /* GET home page. */
 router.post('/', (req, res, next) => {
-  dbHelper.execAsync(`
+  const p = dbHelper.execAsync(`
     INSERT INTO form (
       name,
       attend,
@@ -17,7 +17,8 @@ router.post('/', (req, res, next) => {
       need_invitation,
       address,
       email,
-      memo
+      memo,
+      create_time
     ) VALUES (
       $name,
       $attend,
@@ -29,9 +30,9 @@ router.post('/', (req, res, next) => {
       $need_invitation,
       $address,
       $email,
-      $memo
-    );
-  `, {
+      $memo,
+      $create_time
+    );`, {
       $name: req.body.name,
       $attend: req.body.attend,
       $invitor: req.body.invitor,
@@ -43,12 +44,13 @@ router.post('/', (req, res, next) => {
       $address: req.body.address,
       $email: req.body.email,
       $memo: req.body.memo,
-    })
-    .then(() => {
-      res.json({ ok: true });
-    }).catch(() => {
-      res.status(500).json({ ok: false });
+      $create_time: Date(),
     });
+  return p.then(() => { // eslint-disable-line arrow-body-style
+    return res.json({ ok: true });
+  }).catch(() => { // eslint-disable-line arrow-body-style
+    return res.status(500).json({ ok: false });
+  });
 });
 
 module.exports = router;

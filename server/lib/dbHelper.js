@@ -30,7 +30,8 @@ class DBHelper {
         need_invitation TEXT(8),
         address TEXT(256),
         email TEXT(256),
-        memo TEXT(1024)
+        memo TEXT(1024),
+        create_time TEXT(64)
       )`, (err) => {
         if (err) {
           logger.error(err, 'create table failed');
