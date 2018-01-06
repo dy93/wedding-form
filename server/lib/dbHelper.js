@@ -3,6 +3,7 @@ const config = require('../config');
 const logger = require('./logger');
 
 const initialized = Symbol('initialized');
+const init = Symbol('init');
 
 const db = new sqlite3.Database(config.dbPath, (err) => {
   if (err) {
@@ -11,18 +12,24 @@ const db = new sqlite3.Database(config.dbPath, (err) => {
   }
 });
 
-module.exports = {
-  init: function init() {
+class DBHelper {
+  [init]() {
+    if (this[initialized]) {
+      return Promise.resolve();
+    }
+
     return new Promise((resolve, reject) => db.exec(`
       CREATE TABLE IF NOT EXISTS form (
         name TEXT(256),
-        attend INTEGER(1),
-        invitor TEXT(6),
+        attend TEXT(8),
+        invitor TEXT(8),
         relation TEXT(100),
-        address TEXT(256),
-        email TEXT(256),
         people INTEGER(1),
         vegetable INTEGER(1),
+        baby_seats INTEGER(1),
+        need_invitation TEXT(8),
+        address TEXT(256),
+        email TEXT(256),
         memo TEXT(1024)
       )`, (err) => {
         if (err) {
@@ -32,29 +39,27 @@ module.exports = {
         this[initialized] = true;
         return resolve();
       }));
-  },
+  }
 
-  getAsync: async function getAsync(sql, param) {
-    if (!this[initialized]) {
-      throw new Error(`db has not initialized when exeuting sql: ${sql} with param: ${param}`);
-    }
-    return new Promise((resolve, reject) => db.get(sql, param, (err, row) => {
+  async getAsync(sql, params) {
+    return this[init]().then(new Promise((resolve, reject) => db.get(sql, params, (err, row) => {
       if (err) {
+        logger.error(err, `${sql} with ${params} faild`);
         return reject(err);
       }
       return resolve(row);
-    }));
-  },
+    })));
+  }
 
-  execAsync: async function execAsync(sql) {
-    if (!this[initialized]) {
-      throw new Error(`db has not initialized when exeuting sql: ${sql}`);
-    }
-    return new Promise((resolve, reject) => db.exec(sql, (err) => {
+  async execAsync(sql, params) {
+    return this[init]().then(new Promise((resolve, reject) => db.exec(sql, params, (err) => {
       if (err) {
+        logger.error(err, `${sql} with ${params} faild`);
         return reject(err);
       }
       return resolve();
-    }));
-  },
-};
+    })));
+  }
+}
+
+module.exports = new DBHelper();
