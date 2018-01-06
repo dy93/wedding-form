@@ -22,8 +22,8 @@ export default {
       title: '你會來嗎?',
       items: [
         // the value must be 'YES' or 'NO'
-        { caption: '會會會!!', value: 'YES' },
-        { caption: '我有事不能來耶', value: 'NO' },
+        { caption: '會出席', value: 'YES' },
+        { caption: '無法出席，祝你們結婚快樂 <3', value: 'NO' },
       ],
     },
 
@@ -32,7 +32,7 @@ export default {
       items: [
         { caption: '從慶的朋友', value: '從慶的朋友' },
         { caption: '雪汾的朋友', value: '雪汾的朋友' },
-        { caption: '都是', value: '都是' },
+        { caption: '共同朋友', value: '共同朋友' },
       ],
     },
 
@@ -48,11 +48,11 @@ export default {
     },
 
     invitation: {
-      title: '是否需要喜帖?',
+      title: '是否需要寄送喜帖?',
       items: [
         // the value must be 'YES' or 'NO'
-        { caption: 'YES', value: 'YES' },
-        { caption: 'NO', value: 'NO' },
+        { caption: '需要', value: 'YES' },
+        { caption: '不用哦，婚禮相關資訊我知道了', value: 'NO' },
       ],
     },
   },
