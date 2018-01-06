@@ -105,15 +105,6 @@ class Form extends React.Component {
                       onSubmit={this[onEmailOrAddressSubmit]}
                     >
                       <Input
-                        label="email"
-                        type="email"
-                        maxLength={100}
-                        hint="email"
-                        value={email}
-                        onChange={v => onChange('email', v)}
-                        innerRef={this[getEmailInputRef]}
-                      />
-                      <Input
                         type="text"
                         label="地址"
                         maxLength={100}
@@ -121,6 +112,15 @@ class Form extends React.Component {
                         value={address}
                         onChange={v => onChange('address', v)}
                         innerRef={this[getAddressInputRef]}
+                      />
+                      <Input
+                        label="email"
+                        type="email"
+                        maxLength={100}
+                        hint="email"
+                        value={email}
+                        onChange={v => onChange('email', v)}
+                        innerRef={this[getEmailInputRef]}
                       />
                       <input hidden type="submit" name="submit" value="" />
                     </form>
@@ -143,7 +143,7 @@ class Form extends React.Component {
           onSubmit={onSubmit}
           jumpToName={() => { this[nameInputRef].focus(); }}
           jumpToCustomRelation={() => { this[attendQuestionRef].focusOnCustomRelationInput(); }}
-          jumpToEmail={() => { this[emailInputRef].focus(); }}
+          jumpToAddress={() => { this[addressInputRef].focus(); }}
         />
       </div>
     );
