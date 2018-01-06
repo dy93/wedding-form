@@ -125,8 +125,8 @@ class App extends Component {
             flex: 1, overflowY: 'auto', paddingTop: '1.8rem', marginTop: '200px',
           }}
           >
-            <h1 style={{ color: 'white' }}>{config.title}</h1>
-            <small style={{ color: 'white' }}>{config.subtitle}</small>
+            <h1 style={{ color: 'white', textShadow: '5px 5px 19px black' }}>{config.title}</h1>
+            <small style={{ color: 'white', textShadow: '5px 5px 19px black' }}>{config.subtitle}</small>
             <CountDown />
             <Tabs inverse index={this.state.selectTab} onChange={this.onTabChange} fixed>
               <Tab label="婚宴資訊">
