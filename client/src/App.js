@@ -56,8 +56,8 @@ class App extends Component {
       memo,
     } = this.state;
 
-    gtag('event', 'submit', { attend });
-    gtag('event', `submit_${attend}`, { attend });
+    window.gtag('event', 'submit', { attend });
+    window.gtag('event', `submit_${attend}`, { attend });
 
     this.showLoading(true);
 
@@ -88,8 +88,8 @@ class App extends Component {
   }
 
   onTabChange(index) {
-    gtag('event', `view_tab_${index}`, { tab: index });
-    gtag('event', 'view_tab', { tab: index });
+    window.gtag('event', `view_tab_${index}`, { tab: index });
+    window.gtag('event', 'view_tab', { tab: index });
     this.setState({ selectTab: index });
   }
 
