@@ -7,13 +7,12 @@
 const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
-const dbHelper = require('../lib/dbHelper');
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**
@@ -28,9 +27,7 @@ const server = http.createServer(app);
 
 server.on('error', onError);
 server.on('listening', onListening);
-dbHelper.init().then(() => {
-  server.listen(port);
-});
+server.listen(port);
 
 /**
  * Normalize a port into a number, string, or false.

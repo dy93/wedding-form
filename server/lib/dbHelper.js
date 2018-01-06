@@ -41,24 +41,28 @@ class DBHelper {
       }));
   }
 
-  async getAsync(sql, params) {
-    return this[init]().then(new Promise((resolve, reject) => db.get(sql, params, (err, row) => {
-      if (err) {
-        logger.error(err, `${sql} with ${params} faild`);
-        return reject(err);
-      }
-      return resolve(row);
-    })));
+  getAsync(sql, params) {
+    return this[init]()
+      .then(() => new Promise((resolve, reject) => db.get(sql, params, (err, row) => {
+        if (err) {
+          logger.error(err, `${sql} with ${params} faild`);
+          return reject(err);
+        }
+        return resolve(row);
+      })));
   }
 
-  async execAsync(sql, params) {
-    return this[init]().then(new Promise((resolve, reject) => db.exec(sql, params, (err) => {
-      if (err) {
-        logger.error(err, `${sql} with ${params} faild`);
-        return reject(err);
-      }
-      return resolve();
-    })));
+  execAsync(sql, params) {
+    return this[init]()
+      .then(() => new Promise((resolve, reject) => {
+        db.run(sql, params, (err) => {
+          if (err) {
+            logger.error(err, `${sql} with ${params} faild`);
+            return reject(err);
+          }
+          return resolve();
+        });
+      }));
   }
 }
 
