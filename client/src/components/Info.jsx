@@ -48,7 +48,7 @@ class Info extends React.Component {
                 <Button
                   primary
                   raised
-                  label="我會出席"
+                  label="我要報名婚宴"
                   onClick={this.props.register}
                   style={{ margin: 'auto' }}
                 />

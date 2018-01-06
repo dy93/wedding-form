@@ -81,7 +81,7 @@ class Confirm extends React.Component {
             <div>
               <Chip>
                 <Avatar icon="child_care" />
-                <span>兒童座椅 {childrenSeats} 張</span>
+                <span>兒童座椅{childrenSeats}張</span>
               </Chip>
             </div>
           }
