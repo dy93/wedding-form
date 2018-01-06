@@ -34,7 +34,7 @@ function Box(props) {
 }
 
 Box.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
