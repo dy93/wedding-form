@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import Ripple from 'react-toolbox/lib/ripple/Ripple';
+import PropTypes from 'prop-types';
 import './countdown.css';
 import config from '../config';
 
@@ -33,13 +33,10 @@ function Box(props) {
   );
 }
 
-const CustomLink = props => (
-  <div {...props} style={{ position: 'relative' }}>
-    {props.children}
-  </div>
-);
-
-const RippleBox = Ripple({ spread: 3 })(CustomLink);
+Box.propTypes = {
+  value: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 class CountDown extends React.Component {
   constructor(props) {
