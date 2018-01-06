@@ -55,6 +55,10 @@ class App extends Component {
       vegetable,
       memo,
     } = this.state;
+
+    gtag('event', 'submit', { attend });
+    gtag('event', `submit_${attend}`, { attend });
+
     this.showLoading(true);
 
     // this.toggleDialog(true);
@@ -84,6 +88,8 @@ class App extends Component {
   }
 
   onTabChange(index) {
+    gtag('event', `view_tab_${index}`, { tab: index });
+    gtag('event', 'view_tab', { tab: index });
     this.setState({ selectTab: index });
   }
 
