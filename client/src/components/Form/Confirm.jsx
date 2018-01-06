@@ -20,11 +20,12 @@ class Confirm extends React.Component {
       address,
       people,
       vegetable,
+      childrenSeats,
       memo,
       onSubmit,
       jumpToName,
       jumpToCustomRelation,
-      jumpToEmail,
+      jumpToAddress,
     } = this.props;
     return (
       <Card>
@@ -34,7 +35,7 @@ class Confirm extends React.Component {
             <Chip>
               <Avatar icon="face" />
               {name && <span>{name}</span>}
-              {!name && <span style={{ color: 'red' }} onClick={jumpToName}>請輸入姓名</span>}
+              {!name && <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToName}>請輸入姓名</span>}
             </Chip>
           </div>
           {attend === 'YES' &&
@@ -42,18 +43,24 @@ class Confirm extends React.Component {
               <Chip>
                 <Avatar icon="people" />
                 {relation && <span>{invitor} ({relation})</span>}
-                {!relation && <span style={{ color: 'red' }} onClick={jumpToCustomRelation}>{invitor} (請輸入關係)</span>}
+                {!relation && <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToCustomRelation}>{invitor} (請輸入關係)</span>}
               </Chip>
             </div>
           }
-          {attend === 'YES' &&
+          {invitation === 'NO' &&
+            <div>
+              <Chip>
+                <Avatar icon="email" /><span>不寄喜帖</span>
+              </Chip>
+            </div>
+          }
+          {invitation === 'YES' &&
             <div>
               <Chip>
                 <Avatar icon="email" />
-                {invitation === 'NO' && <span>不寄喜帖</span>}
                 {
                   invitation === 'YES' && (!email && !address) &&
-                  <span style={{ color: 'red' }} onClick={jumpToEmail}>寄送喜帖 (請輸入郵寄地址或email)</span>
+                  <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToAddress}>寄送喜帖 (請輸入郵寄地址或email)</span>
                 }
                 {
                   invitation === 'YES' && (!!email || !!address) &&
@@ -67,6 +74,14 @@ class Confirm extends React.Component {
               <Chip>
                 <Avatar icon="restaurant_menu" />
                 <span>總共{people}人，素食{vegetable}人</span>
+              </Chip>
+            </div>
+          }
+          {attend === 'YES' &&
+            <div>
+              <Chip>
+                <Avatar icon="child_care" />
+                <span>兒童座椅 {childrenSeats} 張</span>
               </Chip>
             </div>
           }
@@ -95,11 +110,12 @@ Confirm.propTypes = {
   address: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
   vegetable: PropTypes.number.isRequired,
+  childrenSeats: PropTypes.number.isRequired,
   memo: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   jumpToName: PropTypes.func.isRequired,
   jumpToCustomRelation: PropTypes.func.isRequired,
-  jumpToEmail: PropTypes.func.isRequired,
+  jumpToAddress: PropTypes.func.isRequired,
 };
 
 export default Confirm;
