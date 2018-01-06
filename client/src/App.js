@@ -5,6 +5,7 @@ import Layout from 'react-toolbox/lib/layout/Layout';
 import Panel from 'react-toolbox/lib/layout/Panel';
 import Tab from 'react-toolbox/lib/tabs/Tab';
 import Tabs from 'react-toolbox/lib/tabs/Tabs';
+import axios from 'axios';
 import './App.css';
 import CountDown from './components/Countdown';
 import Info from './components/Info';
@@ -25,15 +26,14 @@ class App extends Component {
   state = {
     name: '',
     attend: 'YES',
-    invitation: 'YES',
+    needInvitation: 'YES',
     invitor: config.form.invitor.items[0].value,
     relation: config.form.relation.items[0].value,
-    relationElse: '',
     email: '',
     address: '',
     people: 1,
     vegetable: 0, // 素食人敗
-    childrenSeats: 0,
+    babySeats: 0,
     memo: '',
     result: null,
     showDialog: false,
@@ -45,14 +45,14 @@ class App extends Component {
     const {
       name,
       attend,
-      invitation,
+      needInvitation,
       invitor,
       relation,
-      relationElse,
       email,
       address,
       people,
       vegetable,
+      babySeats,
       memo,
     } = this.state;
 
@@ -61,24 +61,44 @@ class App extends Component {
 
     this.showLoading(true);
 
-    // this.toggleDialog(true);
-    this.setState({
-      name: '',
-      attend: 'YES',
-      invitation: 'YES',
-      invitor: config.form.invitor.items[0].value,
-      relation: config.form.relation.items[0].value,
-      relationElse: '',
-      email: '',
-      address: '',
-      people: 1,
-      vegetable: 0, // 素食人數
-      childrenSeats: 0, // 兒童座椅
-      memo: '',
-      showLoading: false,
-      selectTab: 0,
+    return axios.post('/form/', {
+      name,
+      attend,
+      needInvitation,
+      invitor,
+      relation,
+      email,
+      address,
+      people,
+      vegetable,
+      babySeats,
+      memo,
+    }).then(() => {
+      this.showLoading(false);
+      this.toggleDialog(true);
+      // this.setState({
+      //   name: '',
+      //   attend: 'YES',
+      //   needInvitation: 'YES',
+      //   invitor: config.form.invitor.items[0].value,
+      //   relation: config.form.relation.items[0].value,
+      //   email: '',
+      //   address: '',
+      //   people: 1,
+      //   vegetable: 0, // 素食人敗
+      //   babySeats: 0,
+      //   memo: '',
+      //   result: null,
+      //   showDialog: false,
+      //   showLoading: false,
+      //   selectTab: 1,
+      // });
+    }).catch((err) => {
+      alert(err);
+      this.showLoading(false);
     });
   }
+
   onChange(name, value) {
     if (typeof value === 'string') {
       this.setState({ [name]: value.trim().length === 0 ? '' : value });

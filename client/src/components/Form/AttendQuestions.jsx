@@ -32,7 +32,7 @@ class AttendQuestions extends React.Component {
       relation,
       people,
       vegetable,
-      childrenSeats,
+      babySeats,
       onChange,
     } = this.props;
     return (
@@ -88,8 +88,8 @@ class AttendQuestions extends React.Component {
             max={3}
             step={1}
             editable
-            value={childrenSeats}
-            onChange={v => onChange('childrenSeats', v)}
+            value={babySeats}
+            onChange={v => onChange('babySeats', v)}
           />
         </List>
       </div>
@@ -102,7 +102,7 @@ AttendQuestions.propTypes = {
   relation: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
   vegetable: PropTypes.number.isRequired,
-  childrenSeats: PropTypes.number.isRequired,
+  babySeats: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

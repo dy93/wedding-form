@@ -13,14 +13,14 @@ class Confirm extends React.Component {
     const {
       name,
       attend,
-      invitation,
+      needInvitation,
       invitor,
       relation,
       email,
       address,
       people,
       vegetable,
-      childrenSeats,
+      babySeats,
       memo,
       onSubmit,
       jumpToName,
@@ -47,23 +47,23 @@ class Confirm extends React.Component {
               </Chip>
             </div>
           }
-          {invitation === 'NO' &&
+          {needInvitation === 'NO' &&
             <div>
               <Chip>
                 <Avatar icon="email" /><span>不寄喜帖</span>
               </Chip>
             </div>
           }
-          {invitation === 'YES' &&
+          {needInvitation === 'YES' &&
             <div>
               <Chip>
                 <Avatar icon="email" />
                 {
-                  invitation === 'YES' && (!email && !address) &&
+                  needInvitation === 'YES' && (!email && !address) &&
                   <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToAddress}>寄送喜帖 (請輸入郵寄地址或email)</span>
                 }
                 {
-                  invitation === 'YES' && (!!email || !!address) &&
+                  needInvitation === 'YES' && (!!email || !!address) &&
                   <span>寄送喜帖</span>
                 }
               </Chip>
@@ -81,7 +81,7 @@ class Confirm extends React.Component {
             <div>
               <Chip>
                 <Avatar icon="child_care" />
-                <span>兒童座椅{childrenSeats}張</span>
+                <span>兒童座椅{babySeats}張</span>
               </Chip>
             </div>
           }
@@ -103,14 +103,14 @@ class Confirm extends React.Component {
 Confirm.propTypes = {
   name: PropTypes.string.isRequired,
   attend: PropTypes.string.isRequired,
-  invitation: PropTypes.string.isRequired,
+  needInvitation: PropTypes.string.isRequired,
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   people: PropTypes.number.isRequired,
   vegetable: PropTypes.number.isRequired,
-  childrenSeats: PropTypes.number.isRequired,
+  babySeats: PropTypes.number.isRequired,
   memo: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   jumpToName: PropTypes.func.isRequired,

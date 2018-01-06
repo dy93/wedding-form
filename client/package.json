@@ -37,5 +37,6 @@
     "customProperties": {
       "preferred-font": "Consolas,Roboto,Helvetica,Arial,sans-serif,'Microsoft JhengHei';"
     }
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

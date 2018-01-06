@@ -48,7 +48,7 @@ class Form extends React.Component {
     const {
       name,
       attend,
-      invitation,
+      needInvitation,
       memo,
       onSubmit,
       onChange,
@@ -85,14 +85,14 @@ class Form extends React.Component {
               />
             }
             <ListRadioGroup
-              name="invitation"
-              selectValue={invitation}
-              title={config.form.invitation.title}
+              name="needInvitation"
+              selectValue={needInvitation}
+              title={config.form.needInvitation.title}
               onChange={onChange}
-              items={config.form.invitation.items}
+              items={config.form.needInvitation.items}
             />
             {
-              invitation === 'YES' &&
+              needInvitation === 'YES' &&
               <List selectable ripple>
                 <ListSubHeader
                   className="list-item-header"
@@ -153,7 +153,7 @@ class Form extends React.Component {
 Form.propTypes = {
   name: PropTypes.string.isRequired,
   attend: PropTypes.string.isRequired,
-  invitation: PropTypes.string.isRequired,
+  needInvitation: PropTypes.string.isRequired,
   invitor: PropTypes.string.isRequired,
   relation: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,

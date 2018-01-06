@@ -47,7 +47,7 @@ export default {
       ],
     },
 
-    invitation: {
+    needInvitation: {
       title: '是否需要寄送喜帖?',
       items: [
         // the value must be 'YES' or 'NO'
