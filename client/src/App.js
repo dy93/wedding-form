@@ -122,7 +122,7 @@ class App extends Component {
           maxWidth: '800px',
           margin: 'auto',
           marginTop: '-30px',
-          backgroundImage: 'url(./bg2.jpg)',
+          backgroundImage: `url(${process.env.PUBLIC_URL}/bg2.jpg)`,
           backgroundRepeat: 'no-repeat',
           backgroundPositionX: 'center',
         }}
