@@ -14,7 +14,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "react/forbid-prop-types":"off",
+        "react/forbid-prop-types": "off",
         "no-const-assign": "warn",
         "no-this-before-super": "warn",
         "no-undef": "warn",
@@ -34,7 +34,11 @@
                     "to"
                 ]
             }
-        ]
+        ],
+        "no-use-before-define": "warn",
+        "no-param-reassign": "warn",
+        "jsx-a11y/click-events-have-key-events": "warn",
+        "jsx-a11y/no-static-element-interactions": "warn"
     },
     "extends": "airbnb"
 }
