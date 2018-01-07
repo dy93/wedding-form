@@ -13,33 +13,37 @@ import Form from './components/Form';
 import QA from './components/QA';
 import config from './config';
 
+const INIT_STATE = {
+  name: '',
+  attend: 'YES',
+  needInvitation: 'YES',
+  invitor: config.form.invitor.items[0].value,
+  relation: config.form.relation.items[0].value,
+  email: '',
+  address: '',
+  people: 1,
+  vegetable: 0, // 素食人敗
+  babySeats: 0,
+  memo: '',
+  result: null,
+  showDialog: false,
+  showErrorDialog: false,
+  showLoading: false,
+  selectTab: 0,
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleDialog = this.toggleDialog.bind(this);
+    this.toggleErrorDialog = this.toggleErrorDialog.bind(this);
     this.showLoading = this.showLoading.bind(this);
     this.onTabChange = this.onTabChange.bind(this);
   }
 
-  state = {
-    name: '',
-    attend: 'YES',
-    needInvitation: 'YES',
-    invitor: config.form.invitor.items[0].value,
-    relation: config.form.relation.items[0].value,
-    email: '',
-    address: '',
-    people: 1,
-    vegetable: 0, // 素食人敗
-    babySeats: 0,
-    memo: '',
-    result: null,
-    showDialog: false,
-    showLoading: false,
-    selectTab: 1,
-  };
+  state = { ...INIT_STATE }
 
   onSubmit() {
     const {
@@ -74,28 +78,13 @@ class App extends Component {
       babySeats,
       memo,
     }).then(() => {
-      this.showLoading(false);
-      this.toggleDialog(true);
-      // this.setState({
-      //   name: '',
-      //   attend: 'YES',
-      //   needInvitation: 'YES',
-      //   invitor: config.form.invitor.items[0].value,
-      //   relation: config.form.relation.items[0].value,
-      //   email: '',
-      //   address: '',
-      //   people: 1,
-      //   vegetable: 0, // 素食人敗
-      //   babySeats: 0,
-      //   memo: '',
-      //   result: null,
-      //   showDialog: false,
-      //   showLoading: false,
-      //   selectTab: 1,
-      // });
+      this.setState({ ...INIT_STATE, selectTab: this.state.selectTab }, () => {
+        this.toggleDialog(true);
+      // this.showLoading(false); // asdad
+      });
     }).catch((err) => {
-      alert(err);
       this.showLoading(false);
+      this.toggleErrorDialog(true);
     });
   }
 
@@ -115,6 +104,10 @@ class App extends Component {
 
   toggleDialog(showDialog) {
     this.setState({ showDialog });
+  }
+
+  toggleErrorDialog(showErrorDialog) {
+    this.setState({ showErrorDialog });
   }
 
   showLoading(loading) {
@@ -137,6 +130,15 @@ class App extends Component {
           title="成功"
         >
           <p>表單已送出，謝謝~</p>
+        </Dialog>
+        <Dialog
+          actions={[{ label: '太哀傷惹', onClick: () => this.toggleErrorDialog(false) }]}
+          active={this.state.showErrorDialog}
+          onEscKeyDown={() => this.toggleErrorDialog(false)}
+          onOverlayClick={() => this.toggleErrorDialog(false)}
+          title="Oops!送出失敗"
+        >
+          <p><a href="https://github.com/dy93/wedding-form/issues" rel="noopener noreferrer" target="_blank">請按這裡回報issue</a></p>
         </Dialog>
         <Panel style={{
           maxWidth: '800px',
