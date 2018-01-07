@@ -67,8 +67,9 @@ class Confirm extends React.Component {
       onSubmit,
       jumpToName,
       jumpToCustomRelation,
-      jumpToAddress,
+      isExpire,
     } = this.props;
+    const disabledSubmit = isExpire || !name || (needInvitation === 'YES' && !email && !address) || (needInvitation === 'YES' && !Validator.validateEmail(email));
     return (
       <Card>
         <CardTitle title="Summary" />
@@ -116,7 +117,7 @@ class Confirm extends React.Component {
           </div>
         </CardText>
         <CardActions>
-          <Button disabled={!name} label="送出" primary raised style={{ width: '100%' }} onClick={onSubmit} />
+          <Button disabled={disabledSubmit} label="送出" primary raised style={{ width: '100%' }} onClick={onSubmit} />
         </CardActions>
       </Card>
     );
@@ -139,6 +140,7 @@ Confirm.propTypes = {
   jumpToName: PropTypes.func.isRequired,
   jumpToCustomRelation: PropTypes.func.isRequired,
   jumpToAddress: PropTypes.func.isRequired,
+  isExpire: PropTypes.bool.isRequired,
 };
 
 export default Confirm;

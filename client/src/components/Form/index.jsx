@@ -7,6 +7,7 @@ import List from 'react-toolbox/lib/list/List';
 import ListSubHeader from 'react-toolbox/lib/list/ListSubHeader';
 import ListItem from 'react-toolbox/lib/list/ListItem';
 import Input from 'react-toolbox/lib/input/Input';
+import moment from 'moment';
 import AttendQuestions from './AttendQuestions';
 import ListRadioGroup from './ListRadioGroup';
 import ListInput from './ListInput';
@@ -66,10 +67,11 @@ class Form extends React.Component {
       email,
       address,
     } = this.props;
+    const isExpire = moment().isAfter(moment(config.registerDeadline));
     return (
       <div>
         <Card>
-          <CardTitle title="婚宴出席調查" />
+          <CardTitle title={isExpire ? '婚宴出席調查(已經截止囉)' : '婚宴出席調查'} />
           <CardText>
             <ListInput
               title={config.form.name.title}
@@ -153,9 +155,11 @@ class Form extends React.Component {
         <Confirm
           {...this.props}
           onSubmit={onSubmit}
+          isExpire={isExpire}
           jumpToName={() => { this[nameInputRef].focus(); }}
           jumpToCustomRelation={() => { this[attendQuestionRef].focusOnCustomRelationInput(); }}
           jumpToAddress={() => { this[addressInputRef].focus(); }}
+          jumpToEmail={() => { this[emailInputRef].focus(); }}
         />
       </div>
     );

@@ -6,6 +6,8 @@ export default {
   // contdown
   countdownTime: '2018-05-26 00:00:00', // 'YYYY-MM-DD HH:mm:ss'
 
+  registerDeadline: '2018-02-04 23:59:59',
+
   // info
   weddingTime: '2018/05/26 (六) 晚宴',
   weddingAddress: '北投南豐天玥泉會館 (台北市北投區中山路3號)',

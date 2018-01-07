@@ -6,14 +6,16 @@ import List from 'react-toolbox/lib/list/List';
 import ListItem from 'react-toolbox/lib/list/ListItem';
 import Button from 'react-toolbox/lib/button/Button';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import config from '../config';
 
 class Info extends React.Component {
   render() {
+    const deadline = moment(config.registerDeadline);
     return (
       <Card>
-        <CardTitle title="婚宴出席調查" />
+        <CardTitle title="婚宴資訊" />
         <CardText>
           <List ripple={false}>
             <ListItem
@@ -40,7 +42,7 @@ class Info extends React.Component {
                   style={{ border: 0 }}
                   allowFullScreen
                 />
-            }
+              }
             />
             <ListItem
               ripple={false}
@@ -48,9 +50,10 @@ class Info extends React.Component {
                 <Button
                   primary
                   raised
-                  label="我要報名婚宴"
+                  label={`我要報名婚宴 (報名截止日期:${deadline.format('YYYY-MM-DD')})`}
                   onClick={this.props.register}
                   style={{ margin: 'auto' }}
+                  disabled={moment().isAfter(deadline)}
                 />
               }
             />
