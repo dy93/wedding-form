@@ -5,15 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "chrome",
+			"type": "node",
 			"request": "launch",
-			"name": "Launch Chrome against localhost",
-			"url": "http://localhost:3000",
-			"webRoot": "${workspaceRoot}/client/src",
-			"sourceMapPathOverrides": {
-				"webpack:///src/*": "${webRoot}/*"
-			},
-			"cwd": "${workspaceFolder}/client"
+			"name": "Launch Program",
+			"program": "${workspaceFolder}/server/bin/www",
+			"env": {
+				"NODE_ENV": "DEBUG"
+			}
 		}
 	]
 }

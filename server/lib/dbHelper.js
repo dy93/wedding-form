@@ -28,6 +28,7 @@ class DBHelper {
         vegetable INTEGER(1),
         baby_seats INTEGER(1),
         need_invitation TEXT(8),
+        zip_code TEXT(5),
         address TEXT(256),
         email TEXT(256),
         memo TEXT(1024),
@@ -50,6 +51,17 @@ class DBHelper {
           return reject(err);
         }
         return resolve(row);
+      })));
+  }
+
+  getAllAsync(sql, params) {
+    return this[init]()
+      .then(() => new Promise((resolve, reject) => db.all(sql, params, (err, rows) => {
+        if (err) {
+          logger.error(err, `${sql} with ${params} faild`);
+          return reject(err);
+        }
+        return resolve(rows);
       })));
   }
 

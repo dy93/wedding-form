@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 const dbHelper = require('../lib/dbHelper');
 
-/* GET home page. */
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   const p = dbHelper.execAsync(`
     INSERT INTO form (
       name,
