@@ -147,6 +147,9 @@ class App extends Component {
           backgroundPositionX: 'center',
         }}
         >
+          <div style={{ position: 'absolute', top: '40px', left: '10px' }}>
+            <iframe title="dy93/wedding-form" src="https://ghbtns.com/github-btn.html?user=dy93&repo=wedding-form&type=star&count=true" frameBorder="0" scrolling="0" width="170px" height="20px" />
+          </div>
           <div style={{
             flex: 1, overflowY: 'auto', paddingTop: '1.8rem', marginTop: '200px',
           }}
