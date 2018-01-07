@@ -126,7 +126,7 @@ class App extends Component {
           </div>
         </Dialog>
         <Dialog
-          actions={[{ label: 'OK', onClick: () => this.toggleDialog(false) }]}
+          actions={[{ label: '豪!我知道了', onClick: () => this.toggleDialog(false) }]}
           active={this.state.showDialog}
           onEscKeyDown={() => this.toggleDialog(false)}
           onOverlayClick={() => this.toggleDialog(false)}

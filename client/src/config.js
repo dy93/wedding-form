@@ -17,7 +17,7 @@ export default {
   form: {
     name: {
       title: '請問你叫什麼名字?',
-      hint: '請問你叫什麼名字',
+      hint: '這邊要填你的名字',
     },
 
     attendance: {
@@ -39,7 +39,7 @@ export default {
     },
 
     relation: {
-      title: '與我們的關係是?',
+      title: '你怎麼認識我們的?',
       items: [
         { caption: '同事', value: '同事' },
         { caption: '交大武友會', value: '交大武友會' },
@@ -53,7 +53,7 @@ export default {
       title: '是否需要寄送喜帖?',
       items: [
         // the value must be 'YES' or 'NO'
-        { caption: '需要', value: 'YES' },
+        { caption: '需要，給我給我!', value: 'YES' },
         { caption: '不用哦，婚禮相關資訊我知道了', value: 'NO' },
       ],
     },
@@ -61,13 +61,28 @@ export default {
 
   qa: [
     {
-      caption: '1. 為什麼要做這個',
-      legend: '因為要有10倍的誠意啊',
+      caption: '1. 這是你們自己做的嗎?',
+      legend: '對阿，hen厲害吧>.^',
       leftIcon: 'help',
     },
     {
-      caption: '2. 這個好酷啊，有沒有open source?',
-      legend: '有的!請看GitHub',
+      caption: '2. 為什麼要做這個啊?',
+      legend: '自己做才叫做地表最有誠意阿^.<',
+      leftIcon: 'help',
+    },
+    {
+      caption: '3. 這個好酷啊，有沒有open source?',
+      legend: '有有有!在這裡 → https://github.com/dy93/wedding-form/',
+      leftIcon: 'favorite',
+    },
+    {
+      caption: '4. 我想給你star',
+      legend: '好啊',
+      leftIcon: 'favorite',
+    },
+    {
+      caption: '5. 你這個domain name好奇怪R',
+      legend: '還好bar，就 DAvidLIAng.ChungChing阿ㄎㄎ',
       leftIcon: 'favorite',
     },
   ],
