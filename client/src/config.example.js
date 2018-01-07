@@ -1,17 +1,17 @@
 export default {
   // title and subtitle
   title: '地表最有誠意婚宴調查表',
-  subtitle: '從慶 x 雪汾',
+  subtitle: '蠢椒 x 智冥',
 
   // contdown
-  countdownTime: '2018-05-26 00:00:00', // 'YYYY-MM-DD HH:mm:ss'
+  countdownTime: '2020-05-20 00:00:00', // 'YYYY-MM-DD HH:mm:ss'
 
-  registerDeadline: '2018-02-04 23:59:59',
+  registerDeadline: '2018-05-20 23:59:59',
 
   // info
-  weddingTime: '2018/05/26 (六) 晚宴',
-  weddingAddress: '北投南豐天玥泉會館 (台北市北投區中山路3號)',
-  weddingAddressGoogleMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.9564552461034!2d121.50325431519944!3d25.137162983924092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ae451fa431a3%3A0xf6cac12c982fe923!2sBeitou+Hot+Springs+Resort!5e0!3m2!1szh-TW!2stw!4v1512908211812',
+  weddingTime: '2020/05/20 (八) 晚宴',
+  weddingAddress: '我家門前的小河 (台灣海峽)',
+  weddingAddressGoogleMap: 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d46426.38054292488!2d119.56287065126392!3d23.609766324752492!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x70733e72b2f452ee!2z6Kyb576OL-mOrua1t-ekvuWNgOa1t-WgpOWFrOWckg!5e0!3m2!1szh-TW!2stw!4v1515326149426',
 
   // register
   form: {
@@ -32,8 +32,8 @@ export default {
     invitor: {
       title: '請問你是誰的朋友?',
       items: [
-        { caption: '從慶的朋友', value: '從慶的朋友' },
-        { caption: '雪汾的朋友', value: '雪汾的朋友' },
+        { caption: '蠢椒的朋友', value: '蠢椒的朋友' },
+        { caption: '智冥的朋友', value: '智冥的朋友' },
         { caption: '共同朋友', value: '共同朋友' },
       ],
     },
@@ -42,7 +42,6 @@ export default {
       title: '你怎麼認識我們的?',
       items: [
         { caption: '同事', value: '同事' },
-        { caption: '交大武友會', value: '交大武友會' },
         { caption: '大學/研究所同學', value: '大學/研究所同學' },
         { caption: '高中同學', value: '高中同學' },
         { caption: '國中同學', value: '國中同學' },
@@ -78,11 +77,6 @@ export default {
     {
       caption: '4. 我想給你star',
       legend: '好啊',
-      leftIcon: 'favorite',
-    },
-    {
-      caption: '5. 你這個domain name好奇怪R',
-      legend: '還好bar，就 DAvidLIAng.ChungChing阿ㄎㄎ',
       leftIcon: 'favorite',
     },
   ],

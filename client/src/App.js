@@ -147,9 +147,10 @@ class App extends Component {
           maxWidth: '800px',
           margin: 'auto',
           marginTop: '-30px',
-          backgroundImage: `url(${process.env.PUBLIC_URL}/bg2.jpg)`,
+          backgroundImage: `url(${process.env.PUBLIC_URL}/bg.jpg)`,
           backgroundRepeat: 'no-repeat',
           backgroundPositionX: 'center',
+          backgroundColor: 'white',
         }}
         >
           <div style={{ position: 'absolute', top: '40px', left: '10px' }}>
