@@ -94,6 +94,9 @@ class App extends Component {
     } else {
       this.setState({ [name]: value });
     }
+    if (name === 'people') {
+      this.setState(preState => ({ vegetable: Math.min(preState.vegetable, preState.people) }));
+    }
   }
 
   onTabChange(index) {

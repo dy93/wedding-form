@@ -72,7 +72,7 @@ class AttendQuestions extends React.Component {
             pinned
             snaps
             min={0}
-            max={10}
+            max={people}
             step={1}
             editable
             value={vegetable}
