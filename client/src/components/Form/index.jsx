@@ -12,6 +12,7 @@ import ListRadioGroup from './ListRadioGroup';
 import ListInput from './ListInput';
 import Confirm from './Confirm';
 import config from '../../config';
+import Validator from '../../lib/validator';
 
 const onEmailOrAddressSubmit = Symbol('onEmailOrAddressSubmit');
 const getEmailInputRef = Symbol('getEmailInputRef');
@@ -23,6 +24,7 @@ const nameInputRef = Symbol('nameInputRef');
 const getAttendQuestionRef = Symbol('getAttendQuestionRef');
 const attendQuestionRef = Symbol('attendQuestionRef');
 const getRef = Symbol('getRef');
+const onEmailChange = Symbol('onEmailChange');
 
 class Form extends React.Component {
   constructor(props) {
@@ -32,6 +34,15 @@ class Form extends React.Component {
     this[getAddressInputRef] = this[getRef].bind(this, addressInputRef);
     this[getNameInputRef] = this[getRef].bind(this, nameInputRef);
     this[getAttendQuestionRef] = this[getRef].bind(this, attendQuestionRef);
+    this[onEmailChange] = this[onEmailChange].bind(this);
+    this.state = { emailError: false };
+  }
+
+  [onEmailChange](value) {
+    this.props.onChange('email', value);
+    this.setState({
+      emailError: !Validator.validateEmail(value),
+    });
   }
 
   [onEmailOrAddressSubmit](e) {
@@ -119,12 +130,13 @@ class Form extends React.Component {
                         maxLength={100}
                         hint="email"
                         value={email}
-                        onChange={v => onChange('email', v)}
+                        onChange={this[onEmailChange]}
                         innerRef={this[getEmailInputRef]}
+                        error={this.state.emailError ? 'email格式錯誤' : ''}
                       />
                       <input hidden type="submit" name="submit" value="" />
                     </form>
-                }
+                  }
                 />
               </List>
             }

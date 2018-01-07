@@ -7,21 +7,63 @@ import CardActions from 'react-toolbox/lib/card/CardActions';
 import Button from 'react-toolbox/lib/button/Button';
 import Chip from 'react-toolbox/lib/chip/Chip';
 import Avatar from 'react-toolbox/lib/avatar/Avatar';
+import Validator from '../../lib/validator';
+
+
+function Invitation({
+  needInvitation, address, email, jumpToAddress, jumpToEmail,
+}) {
+  if (needInvitation === 'NO') {
+    return (
+      <div>
+        <Chip>
+          <Avatar icon="email" /><span>不寄喜帖</span>
+        </Chip>
+      </div>
+    );
+  }
+
+  let span = null;
+  if (!email && !address) {
+    span = <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToAddress}>寄送喜帖 (請輸入郵寄地址或email)</span>;
+  } else if (!Validator.validateEmail(email)) {
+    span = <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToEmail}>寄送喜帖 (請輸入郵寄地址或email)</span>;
+  } else {
+    span = <span>寄送喜帖</span>;
+  }
+
+  return (
+    <div>
+      <Chip>
+        <Avatar icon="email" />
+        {span}
+      </Chip>
+    </div>
+  );
+}
+
+Invitation.propTypes = {
+  needInvitation: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  jumpToAddress: PropTypes.func.isRequired,
+  jumpToEmail: PropTypes.func.isRequired,
+};
 
 class Confirm extends React.Component {
   render() {
     const {
       name,
       attend,
-      needInvitation,
       invitor,
       relation,
-      email,
-      address,
       people,
       vegetable,
       babySeats,
       memo,
+      needInvitation,
+      email,
+      address,
       onSubmit,
       jumpToName,
       jumpToCustomRelation,
@@ -47,27 +89,8 @@ class Confirm extends React.Component {
               </Chip>
             </div>
           }
-          {needInvitation === 'NO' &&
-            <div>
-              <Chip>
-                <Avatar icon="email" /><span>不寄喜帖</span>
-              </Chip>
-            </div>
-          }
-          {needInvitation === 'YES' &&
-            <div>
-              <Chip>
-                <Avatar icon="email" />
-                {
-                  needInvitation === 'YES' && (!email && !address) &&
-                  <span style={{ color: 'red', textDecoration: 'underline', cursor: 'pointer' }} onClick={jumpToAddress}>寄送喜帖 (請輸入郵寄地址或email)</span>
-                }
-                {
-                  needInvitation === 'YES' && (!!email || !!address) &&
-                  <span>寄送喜帖</span>
-                }
-              </Chip>
-            </div>
+          {
+            <Invitation {...this.props} />
           }
           {attend === 'YES' &&
             <div>
