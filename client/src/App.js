@@ -60,8 +60,9 @@ class App extends Component {
       memo,
     } = this.state;
 
-    window.gtag('event', 'submit', { attend });
-    window.gtag('event', `submit_${attend}`, { attend });
+    window.gtag('event', 'submit', {
+      event_category: 'submit', event_action: 'submit', event_label: 'submit',
+    });
 
     this.showLoading(true);
 
@@ -97,11 +98,16 @@ class App extends Component {
     if (name === 'people') {
       this.setState(preState => ({ vegetable: Math.min(preState.vegetable, preState.people) }));
     }
+
+    window.gtag('event', `edit ${name}`, {
+      event_category: 'edit_form', event_action: `edit ${name}`, event_label: `edit ${name}`,
+    });
   }
 
   onTabChange(index) {
-    window.gtag('event', `view_tab_${index}`, { tab: index });
-    window.gtag('event', 'view_tab', { tab: index });
+    window.gtag('event', `view tab ${index}`, {
+      event_category: 'view', event_action: `view tab ${index}`, value: index, event_label: `select tab ${index}`,
+    });
     this.setState({ selectTab: index });
   }
 
