@@ -85,7 +85,7 @@ class AttendQuestions extends React.Component {
             pinned
             snaps
             min={0}
-            max={3}
+            max={Math.max(people - 1, 0)}
             step={1}
             editable
             value={babySeats}

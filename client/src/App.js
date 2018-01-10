@@ -92,11 +92,15 @@ class App extends Component {
   onChange(name, value) {
     if (typeof value === 'string') {
       this.setState({ [name]: value.trim().length === 0 ? '' : value });
-    } else {
+    } else if (name !== 'people') {
       this.setState({ [name]: value });
-    }
-    if (name === 'people') {
-      this.setState(preState => ({ vegetable: Math.min(preState.vegetable, preState.people) }));
+    } else {
+      const people = Math.max(value, 1);
+      this.setState(preState => ({
+        vegetable: Math.min(preState.vegetable, people),
+        babySeats: Math.min(preState.babySeats, people - 1),
+        people,
+      }));
     }
 
     window.gtag('event', `edit ${name}`, {
